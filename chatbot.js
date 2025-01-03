@@ -34,8 +34,8 @@ async function handleInput(event) {
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
                 messages: [
-                    { role: "system", content: config.GENERAL_CONTEXT },
-                    { role: "user", content: userText }
+                { role: "system", content: config.GENERAL_CONTEXT },
+                { role: "user", content: userText }
                 ]
             })
         });
