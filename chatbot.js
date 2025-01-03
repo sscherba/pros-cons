@@ -1,6 +1,6 @@
 const config = {
-    DEFAULT_RESPONSE: "Can you teach me the pros and cons skill?",
-    GENERAL_CONTEXT: "You are Nikki, a junior in college who is also learning Dialectical Behavior Therapy (DBT) skills outside of school."
+    DEFAULT_RESPONSE: "I’m sorry, I didn’t understand. Can you rephrase?",
+    GENERAL_CONTEXT: "You are a helpful chatbot that assists with DBT skills."
 };
 
 const chatMessages = document.getElementById("chat-messages");
@@ -25,13 +25,11 @@ async function handleInput(event) {
     userInput.value = "";
 
     try {
-        // Call OpenAI API
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer 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` // Replace with your actual API key
-            },
+                "Authorization": `Bearer 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` 
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
                 messages: [
@@ -41,10 +39,16 @@ async function handleInput(event) {
             })
         });
 
+        if (!response.ok) {
+            console.error("Error:", response.status, response.statusText);
+            addMessage(config.DEFAULT_RESPONSE, true);
+            return;
+        }
+
         const data = await response.json();
         addMessage(data.choices[0].message.content, true);
     } catch (error) {
-        console.error(error);
+        console.error("Error:", error);
         addMessage(config.DEFAULT_RESPONSE, true);
     }
 }
