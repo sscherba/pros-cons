@@ -26,20 +26,19 @@ async function handleInput(event) {
 
     try {
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer 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` 
-            },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [
-                { role: "system", content: config.GENERAL_CONTEXT },
-                { role: "user", content: userText }
-                ]
-            })
-        });
-
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer YOUR_OPENAI_API_KEY` // Replace with your actual API key
+    }, // <-- Notice the comma here
+    body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [
+            { role: "system", content: config.GENERAL_CONTEXT },
+            { role: "user", content: userText }
+        ]
+    })
+});
         if (!response.ok) {
             console.error("Error:", response.status, response.statusText);
             addMessage(config.DEFAULT_RESPONSE, true);
