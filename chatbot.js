@@ -30,6 +30,7 @@ async function handleInput(event) {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer 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` 
+            },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
                 messages: [
